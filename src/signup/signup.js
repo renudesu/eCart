@@ -1,5 +1,5 @@
 import React from 'react';
-import { Register } from '../../services/user';
+import { Register } from '../services/user';
 export default class SignUp extends React.Component {
     constructor() {
         super();

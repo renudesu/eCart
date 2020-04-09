@@ -1,5 +1,5 @@
 import React from 'react';
-import { Login } from '../../services/auth';
+import { Login } from '../services/auth';
 export default class SiginIn extends React.Component {
     constructor() {
         super();
