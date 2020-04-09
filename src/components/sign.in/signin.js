@@ -15,10 +15,9 @@ export default class SiginIn extends React.Component {
     }
     signin = () => {
         Login(this.state).then((success) => {
-            console.log(success);
             localStorage.setItem('token', success.data.token);
-            localStorage.setItem('user',JSON.stringify(success.data.details));
-            
+            localStorage.setItem('user', JSON.stringify(success.data.details));
+
         })
     }
     render() {

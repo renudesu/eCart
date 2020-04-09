@@ -1,5 +1,5 @@
 import React from 'react';
-import {Register} from '../../services/user';
+import { Register } from '../../services/user';
 export default class SignUp extends React.Component {
     constructor() {
         super();
@@ -18,9 +18,8 @@ export default class SignUp extends React.Component {
         })
     }
     signup = () => {
-       Register(this.state).then((success)=>{
-           console.log(success);
-       })
+        Register(this.state).then((success) => {
+        })
     }
     render() {
         return (

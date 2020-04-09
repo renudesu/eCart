@@ -1,9 +1,5 @@
 import React from 'react';
-import './App.css';
-import {
-  BrowserRouter as Router,
-  Switch, Route,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, } from "react-router-dom";
 import SignUp from './components/sign.up/signup';
 import SiginIn from './components/sign.in/signin';
 
@@ -16,12 +12,11 @@ function App() {
             <SignUp />
           </Route>
           <Route path='/signin'>
-           <SiginIn/>
+            <SiginIn />
           </Route>
         </Switch>
       </div>
     </Router>
   );
 }
-
 export default App;
