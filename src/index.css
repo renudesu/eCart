@@ -1,1 +1,15 @@
 @import '~bootstrap/dist/css/bootstrap.css';
+
+.box-style{
+    border:1px solid rgb(42, 173, 248);
+}
+.header-button{
+    color: white;
+}
+/* .container-fluid{
+    width: 100%;
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-right: auto;
+    margin-left: auto;
+} */

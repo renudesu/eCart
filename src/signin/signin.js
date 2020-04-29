@@ -1,6 +1,7 @@
 import React from 'react';
 import { Login } from '../services/auth';
-export default class SiginIn extends React.Component {
+import { withRouter } from "react-router-dom";
+class SiginIn extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -13,11 +14,17 @@ export default class SiginIn extends React.Component {
             [event.target.name]: event.target.value
         })
     }
-    signin = () => {
+    signin = (e) => {
         Login(this.state).then((success) => {
             localStorage.setItem('token', success.data.token);
             localStorage.setItem('user', JSON.stringify(success.data.details));
-
+            localStorage.setItem('role', success.data.details.role);
+            if (success.data.details.role === 'admin') {
+                this.props.history.push('/admin/list');
+            }
+            else {
+                this.props.history.push('/user/list');
+            }
         })
     }
     render() {
@@ -44,3 +51,4 @@ export default class SiginIn extends React.Component {
             </div>);
     }
 }
+export default withRouter(SiginIn)
