@@ -24,7 +24,7 @@ class UserBookList extends React.Component {
         const userInfo = localStorage.getItem('user');
         const user = JSON.parse(userInfo);
         getCart(user._id).then((success) => {
-            console.log(success);
+            // console.log(success);
             /** Reducer: to update state in redux functionality */
             this.props.addToCart(success.data.totalItems);
             /**   */

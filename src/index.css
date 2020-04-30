@@ -1,4 +1,5 @@
 @import '~bootstrap/dist/css/bootstrap.css';
+@import '~@fortawesome/fontawesome-free/css/all.css';
 
 .box-style{
     border:1px solid rgb(42, 173, 248);
@@ -13,3 +14,33 @@
     margin-right: auto;
     margin-left: auto;
 } */
+#ex4 .p1[data-count]:after{
+    position:absolute;
+    right:10%;
+    /* top:8%; */
+    top:7px;
+    content: attr(data-count);
+    font-size:12px;
+    /* font-size:40%; */
+    padding:.2em;
+    /* border-radius:40%; */
+    border-radius:7px;
+    line-height:1em;
+    color: white;
+    background:rgba(255,0,0,.85);
+    text-align:center;
+    min-width: 1em;
+   
+    /* //font-weight:bold; */
+  }
+  #ex4 .p3:after{
+    height:18px;
+    width:18px;
+    position: absolute;
+  }
+
+  .btn-outline-success:not(:active) {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}

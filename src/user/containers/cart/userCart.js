@@ -2,6 +2,9 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { cartOrder } from '../../../services/order';
 import { getCart } from '../../../services/cart';
+
+import { connect } from 'react-redux';
+import { ecartAction } from '../../../store/action';
 class UserCart extends React.Component {
     constructor() {
         super();
@@ -19,6 +22,7 @@ class UserCart extends React.Component {
         const user = JSON.parse(userInfo);
         getCart(user._id).then((success) => {
             console.log(success)
+           
             this.setState({
                 cartDeatails: success.data
             })
@@ -42,11 +46,15 @@ class UserCart extends React.Component {
         }
         if (cartOrders && cartOrders.orders && cartOrders.orders.length) {
             cartOrder(cartOrders).then((success) => {
-
+                 this.props.addToCart(0);
+                 this.props.history.push('/user/list')
             })
         }
+
+       
     }
     render() {
+       
         const cartList = this.state.cartDeatails && this.state.cartDeatails.orders && this.state.cartDeatails.orders.map((value, index) => {
             return (
                 <div className="container box-style mb-5" key={`cart-${index}`}>
@@ -97,4 +105,12 @@ class UserCart extends React.Component {
         );
     }
 }
-export default withRouter(UserCart);
+const mapStateToProps = (state) => {
+    return state;
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addToCart: (count) => dispatch(ecartAction(count))
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(withRouter(UserCart));
