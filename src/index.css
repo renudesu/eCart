@@ -1,5 +1,16 @@
 @import '~bootstrap/dist/css/bootstrap.css';
+/* @import '~bootstrap/js/dist/tooltip.js'; */
+/* @import '~bootstrap/js/dist/popover.js';
+@import '~bootstrap/js/dist/popover.js.map'; */
+/* @import '~bootstrap/js/dist/modal.js'; */
+/* @import '~bootstrap/js/dist/util.js'; */
+@import '~bootstrap/dist/css/bootstrap.min.css';
 @import '~@fortawesome/fontawesome-free/css/all.css';
+
+body {
+  background: url(../src/assets/images/summer\ reading.jpg);
+  background-size: cover;
+}
 
 .box-style{
     border:1px solid rgb(42, 173, 248);
@@ -43,4 +54,8 @@
     color: #fff;
     background-color: #28a745;
     border-color: #28a745;
+}
+                           
+.ordercolor{
+  color: rgb(194, 14, 170);
 }

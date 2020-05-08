@@ -1,5 +1,6 @@
 import {BOOK_URL} from '../commons/constants/api-constants';
 import axios from 'axios';
+// import instance from '../commons/constants/interceptors'
 export const CreateBook=(book)=>{
     return axios.post(BOOK_URL,book,{headers:{'x-access-token':localStorage.getItem('token')}});
 }

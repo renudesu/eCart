@@ -2,6 +2,12 @@ import React from 'react';
 import { GetBook } from '../../../services/book';
 import { withRouter } from 'react-router-dom';
 
+
+
+
+
+import '../../../../node_modules/font-awesome/css/font-awesome.min.css'
+
 import { connect } from 'react-redux';
 
 class UserHeader extends React.Component {
@@ -9,28 +15,51 @@ class UserHeader extends React.Component {
     super();
     this.state = {
       lists: {},
-      searchKey: ''
+      searchKey: '',
+
     }
   }
   componentDidMount() {
     GetBook().then((success) => {
       this.setState({
         lists: success.data
-      }, () => console.log(this.state.searchedItem))
+      });
     })
   }
+
   onChangeText = (event) => {
     this.setState({
       searchKey: event.target.value
     })
   }
   search = () => {
-    const arra = [
-      { name: 'Angular' },
-      { name: 'node' },
-      { name: 'mongo' }
-    ]
-}
+    // const lists = [
+    //   { name:'node', id: '1'},
+    //   {name: 'angular',id:'2'},
+    //   {name:'salesforce',id:'3'}
+    // ]
+
+    var filteredList = this.state.lists.filter((item) => {
+      //console.log(item);
+      //console.log(item.name.search(this.state.searchKey), item.name);
+      return item.name.toLowerCase().search(this.state.searchKey.toLowerCase()) > -1;
+
+      // item.id !== '';
+    })
+    console.log(filteredList);
+
+    //     if( searchKey !== "" && value.name.toLowerCase().indexOf(searchKey) === -1){
+    //       return null;
+    //     }
+  }
+  // const names = ['Victoria', 'Pearl', 'Olivia', 'Annabel', 'Sandra', 'Sarah'];
+  // const filterItems = (letters) => {
+  //     return names.filter(name => name.indexOf(letters) > -1);
+  // } 
+
+  // console.log(filterItems('ia')); // ["Victoria", "Olivia"]
+
+
   // constructor() {
   //   super();
   //   this.state = {
@@ -43,14 +72,21 @@ class UserHeader extends React.Component {
   //   })
   // }
   render() {
-    // const show = this.state.menu;
-    // console.log(show); 
-    // console.log(this.state.menu)
+    // const filteredList = this.state.lists.map((item) => {
+    //   return (<li key={index}>{item}</li>);
+    // }
 
     return (
-
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a className="navbar-brand" href="#">Logo</a>
+        <a className="navbar-brand" href="/user/list" target="_blank">
+          {/* <button type="button" className="btn btn-lg btn-primary" data-toggle="popover" title="Popover title" onClick={this.popover} data-content="And here's some amazing content. It's very engaging. Right?"> */}
+          <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+            <small>
+              <img src="https://img.icons8.com/color/48/000000/books.png" alt=""/>Book store</small>
+          </button>
+        </a>
+
+
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon" id="#navbarNav"></span>
         </button>
@@ -68,9 +104,10 @@ class UserHeader extends React.Component {
           </ul>
 
           <form className="form-inline  ml-auto my-2 my-lg-0">
-            <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" onChange={this.onChangeText} />
-            <button className="btn btn-outline-success my-2 my-sm-0" type="button" onChange={this.search}>Search</button>
+            <input className="form-control mr-sm-2" type="search" placeholder="Search for books" aria-label="Search" onChange={this.onChangeText} />
+            <button className="btn btn-outline-success my-2 my-sm-0" type="button" onClick={this.search}>Search</button>
           </form>
+
           <ul className="navbar-nav ml-auto">
             <li className="nav-item active" >
               <button type="button" className="btn btn-primary" onClick={() => this.props.history.push('/user/cart')}>
@@ -87,12 +124,12 @@ class UserHeader extends React.Component {
               {this.props.children}
             </li>
           </ul>
-
         </div>
-      </nav>
+      </nav >
     );
   }
 }
+
 const mapStateToProps = (state) => {
   return state;
 }

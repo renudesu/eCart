@@ -5,7 +5,9 @@ import SiginIn from './signin/signin';
 import AdminDashboard from './admin/containers/Dashboard/adminDashboard';
 import UserDashboard from './user/components/dashboard/userDashboard';
  
-import {createStore} from 'redux';
+
+import {createStore,compose,applyMiddleware} from 'redux';
+import thunk from 'redux-thunk';
 import {Provider} from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
@@ -15,7 +17,7 @@ import {ecartReducer} from './store/reducer';
 //    return {name:'renu'}
 //  }
 
- const store=createStore(ecartReducer,composeWithDevTools());
+ const store=createStore(ecartReducer,compose(composeWithDevTools(),applyMiddleware(thunk)));
 // import UserHeader from './user/components/Header/userHeader';
 function App() {
   return (

@@ -77,19 +77,19 @@ class UserCart extends React.Component {
                     <div className="col-md-4">
                         <div className="row ">
                             <div className="col-md-8 box-style">
-                                <div className="col-md-8"><p>Total Books:{this.state.cartDeatails.totalItems}</p></div>
-                                <div className="col-md-8"><p>Total price:{this.state.cartDeatails.totalPrice}</p></div>
+                                <div className="col-md-8 ordercolor"><p>Total Books:{this.state.cartDeatails.totalItems}</p></div>
+                                <div className="col-md-8 ordercolor"><p>Total price:{this.state.cartDeatails.totalPrice}</p></div>
                             </div>
                         </div>
                         <div className="container box-style mt-5">
                             <div className="row">
-                                <div className="col-md-4 mt-2">
+                                <div className="col-md-4 mt-2 ordercolor">
                                     <label htmlFor="shippingAddress">ShippingAddress</label>
-                                    <textarea type="text" className=" box-style" name="shippingAddress" onChange={this.onChangeText} ></textarea>
+                                    <textarea type="text" className=" box-style " name="shippingAddress" onChange={this.onChangeText} ></textarea>
                                 </div>
                             </div>
                             <div className="row">
-                                <div className="col-md-4 mt-2">
+                                <div className="col-md-4 mt-2 ordercolor">
                                     <label htmlFor="shippingAddress">PhoneNumber</label>
                                     <input type="text" className="mb-3 box-style" name="phoneNumber" onChange={this.onChangeText} />
                                 </div>

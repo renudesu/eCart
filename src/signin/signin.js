@@ -47,8 +47,12 @@ class SiginIn extends React.Component {
                             <button type="button" className="btn btn-primary" onClick={this.signin}>Sign In</button>
                         </form>
                     </div>
+
                 </div>
-            </div>);
+               
+            </div>
+
+        );
     }
 }
 export default withRouter(SiginIn)
