@@ -1,14 +1,16 @@
 import React from 'react';
-import { getOrder } from '../../../services/order';
+import { getOrder, DeleteOrderById } from '../../../services/order';
 import { withRouter } from 'react-router-dom';
 class UserOrder extends React.Component {
     constructor() {
         super();
         this.state = {
-            orders: []
+            orders: [],
+            deletMyOrders: {}
         }
     }
     componentDidMount() {
+
         const userInfo = localStorage.getItem('user');
         const user = JSON.parse(userInfo);
         getOrder(user._id).then((success) => {
@@ -17,6 +19,12 @@ class UserOrder extends React.Component {
                 orders: success.data
             })
         })
+    }
+
+    delete = () => {
+      
+        DeleteOrderById(this.state.orders._id).then((success) => {
+        });
     }
     render() {
         console.log(this.state.orders);
@@ -36,6 +44,7 @@ class UserOrder extends React.Component {
                             </ul>
                         </div>
                     </div>
+                    <button className="btn btn-danger mt-2" onClick={this.delete} >Delete</button>
                 </div>
             );
         });

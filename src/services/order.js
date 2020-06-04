@@ -6,3 +6,6 @@ export const cartOrder=(order)=>{
 export const getOrder=(id)=>{
     return axios.get(`${ORDER_URL}/${id}`,{headers:{'x-access-token':localStorage.getItem('token')}});
 }
+export const DeleteOrderById=(id)=>{
+    return axios.get(`${ORDER_URL}/${id}`,{headers:{'x-access-token':localStorage.getItem('token')}});
+}

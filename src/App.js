@@ -4,56 +4,56 @@ import SignUp from './signup/signup';
 import SiginIn from './signin/signin';
 import AdminDashboard from './admin/containers/Dashboard/adminDashboard';
 import UserDashboard from './user/components/dashboard/userDashboard';
- 
 
-import {createStore,compose,applyMiddleware} from 'redux';
+
+import { createStore, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import {ecartReducer} from './store/reducer';
- 
+import { ecartReducer } from './store/reducer';
+
 //  function sampleReducer(){
 //    return {name:'renu'}
 //  }
 
- const store=createStore(ecartReducer,compose(composeWithDevTools(),applyMiddleware(thunk)));
+const store = createStore(ecartReducer, compose(applyMiddleware(thunk), composeWithDevTools()));
 // import UserHeader from './user/components/Header/userHeader';
 function App() {
   return (
     <Provider store={store}>
       <Router>
-      <div className="App">
-        <Switch>
-          <Route path='/signup'>
-            <SignUp />
-          </Route>
+        <div className="App">
+          <Switch>
+            <Route path='/signup'>
+              <SignUp />
+            </Route>
 
-          <Route exact path="/">
-            <Redirect
-              to={{
-                pathname: "/signin"
-              }}
-            />
-          </Route>
-          <Route path='/signin'>
-            <SiginIn />
-          </Route>
-          <AdminAuthentication path='/admin'>
-            <AdminDashboard />
-          </AdminAuthentication>
+            <Route exact path="/">
+              <Redirect
+                to={{
+                  pathname: "/signin"
+                }}
+              />
+            </Route>
+            <Route path='/signin'>
+              <SiginIn />
+            </Route>
+            <AdminAuthentication path='/admin'>
+              <AdminDashboard />
+            </AdminAuthentication>
 
 
-          <UserAuthentication path='/user'>
-            <UserDashboard />
-          </UserAuthentication>
+            <UserAuthentication path='/user'>
+              <UserDashboard />
+            </UserAuthentication>
 
-        
-        </Switch>
-      </div>
-    </Router>
+
+          </Switch>
+        </div>
+      </Router>
     </Provider>
-    
+
   );
 }
 

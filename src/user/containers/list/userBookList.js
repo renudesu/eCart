@@ -1,9 +1,10 @@
 import React from 'react';
-import { GetBook } from '../../../services/book';
-import { createCart, getCart, updateCart } from '../../../services/cart';
+// import { GetBook } from '../../../services/book';
+import { createCart, updateCart } from '../../../services/cart';
 
 import { connect } from 'react-redux';
-import { ecartAction } from '../../../store/action';
+import { ecartAction, ecartActionRemove, bookAction } from '../../../store/action';
+import {ecartReducer} from '../../../store/reducer';
 class UserBookList extends React.Component {
     constructor() {
         super();
@@ -13,26 +14,29 @@ class UserBookList extends React.Component {
         }
     }
     componentDidMount() {
-        GetBook().then((success) => {
-            this.setState({
-                books: success.data
-            });
-        });
-        this.getCallCart();
+        // GetBook().then((success) => {
+        //     this.setState({
+        //         books: success.data
+        //     });
+        // });
+        this.props.getBooks();
+        this.setState( (previousState) => ecartReducer(previousState, bookAction))
+        this.props.addToCart();
+        //this.getCallCart();
     }
-    getCallCart = () => {
-        const userInfo = localStorage.getItem('user');
-        const user = JSON.parse(userInfo);
-        getCart(user._id).then((success) => {
-            // console.log(success);
-            /** Reducer: to update state in redux functionality */
-            this.props.addToCart(success.data.totalItems);
-            /**   */
-            this.setState({
-                cartDetails: success.data
-            })
-        })
-    }
+    // getCallCart = () => {
+    //     const userInfo = localStorage.getItem('user');
+    //     const user = JSON.parse(userInfo);
+    //     getCart(user._id).then((success) => {
+    //         // console.log(success);
+    //         /** Reducer: to update state in redux functionality */
+    //         this.props.addToCart(success.data.totalItems);
+    //         /**   */
+    //         this.setState({
+    //             cartDetails: success.data
+    //         })
+    //     })
+    // }
     addToCart = (value) => {
         // debugger
         // console.log(this.state.cartDetails);
@@ -108,9 +112,35 @@ class UserBookList extends React.Component {
             })
         }
     }
+    removeCart = (value) => {
+        if (this.state.cartDetails.userId) {
+            const orders = this.state.cartDetails.orders;
+            let index = -1;
+            for (var i = 0; i < orders.length; i++) {
+                if (orders[i].itemId === value._id) {
+                    index = i;
+                }
+            }
+            if (index > -1) {
+                orders[index].quantity--;
+
+            }
+            const cart = {
+                ...this.state.cartDetails,
+                orders: orders
+            }
+            updateCart(cart).then((success) => {
+                console.log(cart);
+                setTimeout(this.getCallCart(), 1500);
+            });
+        }
+    }
+    // this.setState( (previousState) => reducer(previousState, someAction)).
 
     render() {
-        const userBookList = this.state.books.map((value, index) => {
+       /** this.props.UserBookList && this.props.UserBookList. this type of code is inline checking or we can write if condition */
+        const list = this.props.userBookList && this.props.userBookList.map((value, index) => {
+           console.log(value);
             return (
                 <div className="card col-md-3 ml-5 mb-5" key={`card-${index}`}>
                     <img src={value.imageUrl} className="card-img-top" alt="bookimage" />
@@ -118,23 +148,29 @@ class UserBookList extends React.Component {
                         <h5 className="card-title">{value.name.toUpperCase()}</h5>
                         <p className="card-text">{value.author.join(',')}</p>
                         <button className="btn btn-primary" onClick={() => this.addToCart(value)}>Add to Cart</button>
+                        <button className="btn btn-danger mt-2" onClick={() => this.removeCart(value)}>Remove</button>
                     </div>
                 </div>
             );
         })
+
         return (
             <div className="row ordercolor mt-5">
-                {userBookList}
+                {list}
             </div>
         )
     }
 }
 const mapStateToProps = (state) => {
-    return state;
+    return {
+        userBookList: state.books
+   };
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        addToCart: (count) => dispatch(ecartAction(count))
+        addToCart: () => dispatch(ecartAction()),
+        removeCart: (count) => dispatch(ecartActionRemove(count)),
+        getBooks: () => dispatch(bookAction())
     }
 }
 

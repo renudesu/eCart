@@ -1,6 +1,9 @@
 import React from 'react';
+
+import { withRouter } from "react-router-dom";
+
 import { Register } from '../services/user';
-export default class SignUp extends React.Component {
+ class SignUp extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -20,6 +23,7 @@ export default class SignUp extends React.Component {
     signup = () => {
         Register(this.state).then((success) => {
         })
+        this.props.history.push('/');
     }
     render() {
         return (
@@ -62,3 +66,4 @@ export default class SignUp extends React.Component {
         );
     }
 }
+export default withRouter(SignUp);
